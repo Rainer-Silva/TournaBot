@@ -1,0 +1,12 @@
+{
+  "name": "tournabot",
+  "version": "1.0.0",
+  "description": "The Discord-native tournament bot for Pro Clubs and beyond.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Rainer Silva",
+  "license": "MIT",
+  "dependencies": {}
+}
