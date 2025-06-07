@@ -8,5 +8,9 @@
   },
   "author": "Rainer Silva",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "discord.js": "^14.19.3",
+    "dotenv": "^16.5.0",
+    "mongoose": "^8.15.1"
+  }
 }

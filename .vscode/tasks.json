@@ -1,0 +1,86 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Clone Repository",
+      "type": "shell",
+      "command": "git clone https://github.com/Rainer-Silva/TournaBot.git",
+      "problemMatcher": [],
+      "detail": "Clone the TournaBot repository from GitHub."
+    },
+    {
+      "label": "Install Dependencies",
+      "type": "shell",
+      "command": "npm install",
+      "problemMatcher": ["$npm-install"],
+      "detail": "Install all Node.js dependencies."
+    },
+    {
+      "label": "Run Bot",
+      "type": "shell",
+      "command": "node index.js",
+      "problemMatcher": [],
+      "detail": "Run the TournaBot bot."
+    },
+    {
+      "label": "Run Bot (nodemon)",
+      "type": "shell",
+      "command": "npx nodemon index.js",
+      "problemMatcher": [],
+      "detail": "Run the TournaBot bot with hot-reload using nodemon."
+    },
+    {
+      "label": "Start TournaBot",
+      "type": "shell",
+      "command": "node index.js",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start TournaBot (nodemon)",
+      "type": "shell",
+      "command": "npx nodemon index.js",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Register Slash Commands",
+      "type": "shell",
+      "command": "node registerCommands.js",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run MongoDB (if using locally)",
+      "type": "shell",
+      "command": "mongod --dbpath ./data",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Web Server (nginx test)",
+      "type": "shell",
+      "command": "sudo nginx -s reload",
+      "group": "test",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
