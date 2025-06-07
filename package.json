@@ -4,7 +4,9 @@
   "description": "The Discord-native tournament bot for Pro Clubs and beyond.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nohup node index.js > bot.log 2>&1 &",
+    "stop": "pkill -f 'node index.js' || true",
+    "restart": "npm run stop && npm run start"
   },
   "author": "Rainer Silva",
   "license": "MIT",
