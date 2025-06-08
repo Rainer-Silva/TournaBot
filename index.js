@@ -27,25 +27,16 @@ client.on('interactionCreate', async interaction => {
       if (interaction.commandName === 'ping') {
         await interaction.reply('Pong!');
       } else if (interaction.commandName === 'create-tournament') {
-        // Show modal for tournament name and number of teams
+        // Step 1: ask for tournament name only
         const modal = new ModalBuilder()
-          .setCustomId('createTournamentModal')
+          .setCustomId('tournamentNameModal')
           .setTitle('Create Tournament');
         const nameInput = new TextInputBuilder()
           .setCustomId('tournamentName')
           .setLabel('Tournament Name')
           .setStyle(TextInputStyle.Short)
           .setRequired(true);
-        const teamsInput = new TextInputBuilder()
-          .setCustomId('numberOfTeams')
-          .setLabel('Number of Teams')
-          .setStyle(TextInputStyle.Short)
-          .setPlaceholder('Enter a number')
-          .setRequired(true);
-        modal.addComponents(
-          new ActionRowBuilder().addComponents(nameInput),
-          new ActionRowBuilder().addComponents(teamsInput)
-        );
+        modal.addComponents(new ActionRowBuilder().addComponents(nameInput));
         await interaction.showModal(modal);
       } else if (interaction.commandName === 'register-team') {
         // For now, use the user's Discord name as the team name and register to the latest tournament
@@ -82,9 +73,23 @@ client.on('interactionCreate', async interaction => {
         await interaction.reply({ content: 'An error occurred while processing your command.', ephemeral: true });
       }
     }
-  } else if (interaction.type === InteractionType.ModalSubmit && interaction.customId === 'createTournamentModal') {
-    // After modal, prompt for channel selection
+  } else if (interaction.type === InteractionType.ModalSubmit && interaction.customId === 'tournamentNameModal') {
+    // Step 2: ask for number of teams
     const tournamentName = interaction.fields.getTextInputValue('tournamentName');
+    const modal = new ModalBuilder()
+      .setCustomId(`numberTeamsModal|${tournamentName}`)
+      .setTitle('Number of Teams');
+    const teamsInput = new TextInputBuilder()
+      .setCustomId('numberOfTeams')
+      .setLabel('Number of Teams')
+      .setStyle(TextInputStyle.Short)
+      .setPlaceholder('Enter a number')
+      .setRequired(true);
+    modal.addComponents(new ActionRowBuilder().addComponents(teamsInput));
+    await interaction.showModal(modal);
+  } else if (interaction.type === InteractionType.ModalSubmit && interaction.customId.startsWith('numberTeamsModal|')) {
+    // After second modal, prompt for channel selection
+    const [_, tournamentName] = interaction.customId.split('|');
     const numberOfTeams = interaction.fields.getTextInputValue('numberOfTeams');
     if (!/^[0-9]+$/.test(numberOfTeams) || parseInt(numberOfTeams) < 2) {
       await interaction.reply({ content: 'Please enter a valid number of teams (minimum 2).', ephemeral: true });
@@ -110,7 +115,7 @@ client.on('interactionCreate', async interaction => {
     // After channel selection, create tournament
     const [_, tournamentName, numberOfTeams] = interaction.customId.split('|');
     const channelId = interaction.values[0];
-    const tournament = new Tournament({ name: tournamentName });
+    const tournament = new Tournament({ name: tournamentName, numberOfTeams });
     await tournament.save();
     await interaction.update({
       content: `Tournament **${tournamentName}** (Teams: ${numberOfTeams}) created and will run in <#${channelId}>!`,
