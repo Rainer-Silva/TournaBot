@@ -22,3 +22,5 @@ TournaBot is a Discord bot that helps organize football tournaments.
 
 ## Development
 The project uses Node.js and MongoDB with Mongoose for storage. Edit `index.js` for bot logic.
+
+[![Lint Code Base](https://github.com/Rainer-Silva/TournaBot/actions/workflows/super-linter.yml/badge.svg)](https://github.com/Rainer-Silva/TournaBot/actions/workflows/super-linter.yml)
