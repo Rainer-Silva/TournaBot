@@ -1,3 +1,26 @@
-# ...existing code...
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+build/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# User files
+*.swp
+*.swo
 .env
-# ...existing code....env
+
+# Legacy/local dependency folders
+node_modules/
